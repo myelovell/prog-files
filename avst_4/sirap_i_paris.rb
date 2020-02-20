@@ -1,5 +1,4 @@
 #2020-01-23
-#EJ TESTAD
 
 def sirap_i_paris(str)
     while !str.is_a?(String)
