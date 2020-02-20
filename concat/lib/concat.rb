@@ -21,8 +21,11 @@ def concat(arr1, arr2)
             input = gets.chomp
         end
     end
-    new_array = []
-    new_array << arr1
-    new_array << arr2
+    new_array = arr1
+    i = 0
+    while i < arr1.length
+        new_array += arr1[i]
+        i += 1
+    end
     return new_array
 end
