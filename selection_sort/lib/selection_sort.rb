@@ -1,6 +1,7 @@
 #2020-01-31, selection sort
 
 def selection_sort(array)
+    #input tests
     while !array.is_a?(Array)
         puts "input is not an array, input variable"
         puts "write END when done"
@@ -17,24 +18,18 @@ def selection_sort(array)
         end
     end
 
-#    for i in range len(L):
-#    for j in range (i+1,len(L))
-#    if (L[i]>L[j]):
-#    temp=L[i]
-#    L[i]=L[j]
-#    L[j]=temp
+    #Time-complexity: O(n^2)
+    #In-place It never makes more than O(n) swaps
 
-
-    for i in 0...array.length
-        for index in (i + 1)...array.length
-            if array[i] > array[index]
+    for i in 0...array.length #for every element in input array
+        for index in (i + 1)...array.length #goes through every element after selected element
+            if array[i] > array[index] #checks if previous element is bigger than current element
                 temporary = array[i]
                 array[i] = array[index]
-                array[index] = temporary
+                array[index] = temporary #switches places
             end
         end
     end
     return array
 end
-#reverse bubble sort and output in new array
 #cleared
