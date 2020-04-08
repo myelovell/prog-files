@@ -1,0 +1,30 @@
+6.	skapa_grupper.rb (Utmanande uppgift)
+
+I mappen finns följande:
+- Ruby-fil med namnet skapa_grupper.rb, filen är i nuläget helt tom.
+- Text-fil med namnet namnlista.txt. Filen innehåller 23 namn på varsin rad.
+
+Skriv Ruby-kod i filen skapa_grupper.rb som gör följande:
+
+1. äser in innehållet i filen namnlista.txt
+2. Skapar slumpade grupper på 4 personer från namnen i textfilen. Om antalet
+namn inte går att dela jämntmed 4 ska en grupp skapas med antalet namn som blir
+kvar. Med andra ord: I exemplet med 23 namn blir det en grupp som har 3 namn
+och övriga grupper 4 namn. Här kan det vara användbart att använda metoden
+.shuffle, som slumpar elementen i en array.
+3. Skapar en fil med ett passande filnamn, där de slumpade grupperna kommer
+presenteras. Tips för att skapa unika filnamn kan vara att ha med data från
+aktuell tid i filnamnet, med hjälp av klassen Time.
+4. Skriver grupperna på ett strukturerat sätt i filen,
+
+Grupp 1:    Grupp 2:
+Namn 1      Namn 1
+Namn 2      Namn 2
+Namn 3      Namn 3
+Namn 4      Namn 4
+
+etc
+
+Koden i Ruby-filen ska inte vara formulerad som en funktion, utan ska köras så
+fort filen körs. På så vis ska man kunna dubbelklicka på Ruby-filen, och vips
+ska dokumentet med de slumpade grupperna skapas!
