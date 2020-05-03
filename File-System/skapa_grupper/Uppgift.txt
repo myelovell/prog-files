@@ -6,7 +6,7 @@ I mappen finns följande:
 
 Skriv Ruby-kod i filen skapa_grupper.rb som gör följande:
 
-1. äser in innehållet i filen namnlista.txt
+1. läser in innehållet i filen namnlista.txt
 2. Skapar slumpade grupper på 4 personer från namnen i textfilen. Om antalet
 namn inte går att dela jämntmed 4 ska en grupp skapas med antalet namn som blir
 kvar. Med andra ord: I exemplet med 23 namn blir det en grupp som har 3 namn

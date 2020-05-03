@@ -1,0 +1,13 @@
+2020-04-29, Uppgift 5b - Nim
+
+a)
+PvP
+Börjar med 14 pinnar, turas om att plocka 1-3 pinnar
+Mål: plocka inte upp den sista pinnen
+
+- låt spelarna skriva in sina namn
+- slumpar ett antal pinnar att starta med
+- turas om att plocka 1-3 pinnar
+- visar vinnaren ich låter spela om
+
+b) ai som opponent

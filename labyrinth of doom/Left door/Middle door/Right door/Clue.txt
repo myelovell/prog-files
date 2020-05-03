@@ -1,4 +1,0 @@
-Create a new txt-file in this directory, my friend.
-Name it "last_clue.txt" and you are close to the end.
-Fill it with seven zeroes, not more nore less. The
-door with its file size, will grant you access.
