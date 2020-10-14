@@ -1,18 +1,69 @@
 #2020-09-16, acces and take out money, recrusive function with public and private objects
-puts "Welcome to Mone-Inda Bank"
-puts "Select you option:\n
-Register Accoun: 'Reg'
-Open Account : 'Open'
-"
-$option = gets.chomp
-while $option != "Reg" || "Open"
-    puts "To register a new account: 'Reg'"
-    puts "To open an excisting account: 'Open'"
-    $option = gets.chomp
-    if $option == "Reg"
-        register_account()
-    elsif $option == "Open"
-        open_bank()
+#def withdraw-amount(amount)
+#    if accsess_allowed
+#        open_safe
+#        get_cash(amout)
+#        close_safe
+#    end
+
+# Bank application. Withdraw, deposit, access money in bank. Recursive function to do the latter with public and private objects
+
+# Bank class with accessing functions etc. Account class with password, settings functions etc.
+class User
+    def initialize()
+        @cash = input
+    end
+    def operations()
+        hputs "Welcome to Mone-Inda Bank"
+        puts "Select you option:"
+        puts help()
+
+        while true
+            input = gets.chomp.downcase
+            case input
+            when "help"
+                help()
+            when "register"
+                register_account()
+            when "open?"
+                bank_open?()
+            when "access"
+                access_account()
+            when "close"
+                close_bank()
+            when "withdraw"
+                withdraw()
+            when "deposit"
+                deposit()
+            when "bal"
+                display_balance()
+            when "cash"
+                display_cash()
+            when "clear"
+                system("cls")
+            when "accounts"
+                $bank.display_accounts
+            else
+                puts "Invalid input, refer to help for commands"
+            end
+        end
+    end
+
+    def help()
+      puts "help - Displays this message
+    register - Register a new account in the bank
+    open? - Says if the bank is open or closed
+    access - Access an account with a password
+    close - Close the bank
+    withdraw - Withdraw money from the bank as cash*
+    deposit - Put money in the bank*
+    bal - Check your bank balance*
+    cash - Check your cash balance
+
+    clear - Clear the screen
+
+    * Access to an account is required"
+    end
 end
 
 class Bank
@@ -35,10 +86,18 @@ class Bank
     #     end
     # end
 
+    def account_excists?(account)
+        if @accounts.include?(account)
+            return true
+        else
+            return false
+        end
+    end
+
     def open_bank(account, password)
         if password = @accounts[account][1]
             @access_allowed = true
-            @current_accont = account
+            @current_account = account
             puts "Acces granted for account: #{account}"
             return true
         else
@@ -47,17 +106,17 @@ class Bank
         end
     end
 
-    # def enter_account_num()
-    #     puts "Enter account number: you have #{@tries} tries left"
-    #     account_num = gets.to_i
-    #     if account_num != @account_num
-    #         if @tries == 0
-    #             break
-    #         end
-    #         @tries -= 1
-    #         enter_account_num()
-    #     end
-    # end
+    def enter_account_num(account)
+        puts "Enter account number: you have #{@tries} tries left"
+        account_num = gets.to_i
+        if @accounts.include?(account_num)
+            if @tries == 0
+                # break
+            end
+            @tries -= 1
+            enter_account_num()
+        end
+    end
     # puts "Account number: #{@account_num}"
     #
     # def enter_password()
@@ -82,16 +141,3 @@ class Bank
         end
     end
 end
-
-#def withdraw-amount(amount)
-#    if accsess_allowed
-#        open_safe
-#        get_cash(amout)
-#        close_safe
-#    end
-
-# $global_variable = 10 can be defined outside of functions, normal_variables cannot
-x = Bank.new
-x.register_account(11, "pswrd")
-x.open_bank(11, "pswrd")
-x.display_balance(11)
