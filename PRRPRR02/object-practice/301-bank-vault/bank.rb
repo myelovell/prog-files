@@ -16,11 +16,11 @@ class Bank
     @access_allowed = false # whether or not user can access account
     @current_acc = 0
   end
-  attr_reader :current_acc #read up on attribute readers ----
+  # attr_reader :current_acc #read up on attribute readers ----
 
 
   # puts Bank.new.current_acc => 0
-
+#2a
   def account_exists?(account)
     if @accounts.include?(account)
       return true
@@ -28,25 +28,15 @@ class Bank
       return false
     end
   end
-
-  def register_account(account, password) # Access not needed to create a new account
-    p password
-    if account_exists?(account)
-      return false
-    else
-      @accounts[account] = [0, password]
-      p @accounts[account]
-      return true
+#1
+    def register_account(account, password) # Access not needed to create a new account
+        if account_exists?(account)
+            return false
+        else
+            @accounts[account] = [0, password]
+            return true
+        end
     end
-  end
-
-
-  def display_accounts() # Just to show balance and passwords of all accounts, not to be in final version
-    @accounts.each do |acc_num, values|
-      puts "acc: #{acc_num}"
-      puts "  bal: #{values[0]} pswd: #{values[1]}"
-    end
-  end
 
   def display_balance() #
     if @access_allowed
@@ -55,7 +45,7 @@ class Bank
       return false
     end
   end
-
+#2b
   def open_bank(account, password)
     if password == @accounts[account][1]
       @access_allowed = true
@@ -68,6 +58,7 @@ class Bank
     end
   end
 
+#end
   def close_bank()
     @access_allowed = false
     @current_acc = 0
@@ -76,27 +67,31 @@ class Bank
   def bank_open?()
     @access_allowed ? true : false # Ternary Operator: if access_allowed == true return true, else return false
   end
-
-  def withdraw_money(amount)
-    if amount <= @accounts[@current_acc][0]
-      @accounts[@current_acc][0] -= amount
-      return true
-    else
-      return false
-    end
-  end
-
+#a
   def deposit_money(amount)
     @accounts[@current_acc][0] += amount
   end
 
 end
+#b
+def withdraw_money(amount)
+    if amount <= @accounts[@current_acc][0]
+        @accounts[@current_acc][0] -= amount
+        return true
+    else
+        return false
+    end
+end
+
+
+
+
 
 class User
   def initialize()
     @cash = 1000
   end
-
+#1
   def register_account()
     puts "Please input new account number:"
     account = gets.to_i
@@ -118,6 +113,7 @@ class User
     end
   end
 
+#2
   def access_account()
     close_bank() # Not sure if I need this
     puts "Which account should be accessed?"
@@ -139,7 +135,7 @@ class User
   def close_bank()
     $bank.close_bank()
   end
-
+#b
   def withdraw()
     if $bank.bank_open?()
       puts "How much would you like to withdraw from account #{$bank.current_acc}"
@@ -157,7 +153,7 @@ class User
       withdraw()
     end
   end
-
+#a
   def deposit()
     if $bank.bank_open?()
       puts "How much would you like to deposit to account #{$bank.current_acc}"
@@ -175,8 +171,8 @@ class User
       access_account()
       deposit()
     end
-  end
-
+end
+#outside 1
   def display_balance()
     if $bank.display_balance()
       # Bank.display_balance() returns an array containing [account num, account bal] if access_allowed = true
@@ -195,7 +191,7 @@ class User
   def display_cash()
     puts "Cash: #{@cash}"
   end
-
+#outside 2
   def help()
     puts "help - Displays this message
 register - Register a new account in the bank
@@ -211,7 +207,7 @@ clear - Clear the screen
 
 * Access to an account is required"
   end
-
+#outside 3
   def operations()
     help()
     while true
