@@ -12,15 +12,18 @@
 class User
     def initialize()
         @cash = input #input cash?
+        @tries = 3
     end
+    attr_reader :tries
 
     def register_account()
         puts "Enter account number:"
         account = gets.to_i
-            while account <= 1
-                puts "Enter account number highet than 1:"
-                account = gets.to_i
-            end
+        while account <= 1
+            puts "Enter account number highet than 1:"
+            account = gets.to_i
+        end
+
         puts "Enter password:"
         password = gets.chomp
         while password <= 5
@@ -47,10 +50,15 @@ class User
 
     def access_account()
         close_bank()
+        tries = 3
         puts "Enter account number you want to access:"
+        account = gets.to_i
+        while account <= 1
+            puts "Enter account number highet than 1:"
+            account = gets.to_i
+        end
+        account == "cancel" || account == "Cancel" ? exit : nil # Ternary Operator: if account == "cancel" or "Cancel", exit the function, if not dont do anything
         # def enter_account_num(account)
-        #     puts "Enter account number: you have #{@tries} tries left"
-        #     account_num = gets.to_i
         #     if @accounts.include?(account_num)
         #         if @tries == 0
         #             # break
@@ -59,23 +67,33 @@ class User
         #         enter_account_num()
         #     end
         # end
-        while account <= 1
-            puts "Enter account number highet than 1:"
-            account = gets.to_i
-        end
-        if $bank.account_exists(account)
+
+        # def enter_password()
+        #     puts "Enter password: you have #{@tries} tries left"
+        #     pasword = gets.chomp
+        #     if password != @password
+        #         if @tries == 0
+        #             break
+        #         end
+        #         @tries -= 1
+        #         enter_password()
+        #     end
+        # end
+        if $bank.account_exists?(account)
             puts "Enter account password for account number. #{account}"
-            # def enter_password()
-            #     puts "Enter password: you have #{@tries} tries left"
-            #     pasword = gets.chomp
-            #     if password != @password
-            #         if @tries == 0
-            #             break
-            #         end
-            #         @tries -= 1
-            #         enter_password()
-            #     end
-            # end
+            password = gets.chomp
+            while tries > 0
+                if $bank.open_bank(account, password)
+                    puts "Account #{account} accessed successfully!"
+                    display_balance()
+                    tries = 0
+                else
+                    puts "Incorrect password, please try again"
+                    puts "You have #{tries} left"
+                    tries =- 1
+                    access_account()
+                end
+            end
             password = gets.chomp
             if $bank.open_bank(account, password)
                 puts "Account Number: #{account} accessed successfully"
@@ -87,9 +105,48 @@ class User
     end
 
     def withdraw()
+        if bank.bank_open?()
+            puts "Enter withdrawal amount from account: #{$bank.current_acc}"
+            input = gets.to_i
+            while input <= 0
+                puts "enter a positive value larger than 0"
+                input = gets.to_i
+            end
+            if $bank.withdraw_money(input)
+                @cash += input
+                display_value()
+            else
+                puts "Too little money in account, enter a smaller value"
+                withdraw()
+        end
+        else
+            puts "Bank isn't open! Please access an account first"
+            access_account()
+            withdraw()
+        end
     end
 
     def deposit()
+        if $bank.bank_open?()
+            puts "How much would you like to deposit to account #{$bank.current_acc}"
+            input = gets.to_i
+            while input <= 0
+                puts "enter a positive value larger than 0"
+                input = gets.to_i
+            end
+            if input <= @cash
+                $bank.deposit_money(input)
+                @cash -= input
+                display_balance()
+            else
+                puts "Too little cash on hand! Deposit less or withdraw more!"
+                deposit()
+            end
+        else
+            puts "Bank isn't open! Please access an account first"
+            access_account()
+            deposit()
+        end
     end
 
 #outside a
@@ -166,20 +223,13 @@ class User
     end
 end
 
-
-
-
-
-
-
-
 class Bank
     def initialize()
         @accounts = {10:[2000, "p455w0rd"]}
         @access_allowed = false
         @current_account = 0
     end
-
+    attr_reader :current_acc
 
     def register_account(account, password)
         if account_exists?(account)
@@ -218,9 +268,16 @@ class Bank
     end
 
     def withraw_money()
+        if amount <= @accounts[@current_acc][0]
+            @accounts[@current_acc][0] -= amount
+            return true
+        else
+            return false
+        end
     end
 
-    def deposit_money()
+    def deposit_money(amount)
+        @accounts[@current_acc][0] += amount
     end
 
 #outside a
