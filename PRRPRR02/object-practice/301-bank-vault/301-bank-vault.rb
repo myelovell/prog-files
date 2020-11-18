@@ -11,7 +11,7 @@
 # Bank class with accessing functions etc. Account class with password, settings functions etc.
 class User
     def initialize()
-        @cash = input #input cash?
+        @cash = 4000 #input cash?
         @tries = 3
     end
     attr_reader :tries
@@ -166,7 +166,7 @@ class User
 
 #outside c
     def operations()
-        hputs "Welcome to Mone-Inda Bank"
+        puts "Welcome to Mone-Inda Bank"
         puts "Select you option:"
         puts help()
 
@@ -225,7 +225,7 @@ end
 
 class Bank
     def initialize()
-        @accounts = {10:[2000, "p455w0rd"]}
+        @accounts = {10 => [2000, "p455w0rd"]}
         @access_allowed = false
         @current_account = 0
     end
@@ -237,6 +237,7 @@ class Bank
         else
             @accounts[account] = [0, password]
             return true
+        end
     end
 
     def account_exists?(account)
@@ -248,7 +249,7 @@ class Bank
     end
 
     def bank_open?()
-        if @access_allowed = false
+        if @access_allowed == false
             return false
         else
             return true
