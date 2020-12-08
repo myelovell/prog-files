@@ -40,6 +40,8 @@ x.add_fruit(one_apple)
 x.add_fruit(one_banana)
 x.add_fruit("orange") #not a fruit!
 x.print_all_fruit
+kontor = Fruit_basket.new("banan")
 
 puts x.class
-puts x[0].class
+puts kontor.class
+# puts x[0].class
