@@ -1,0 +1,3 @@
+Jakob, true, false, true, 12.50, 0h 30min
+Frida, false, false, true, 11.30, 1h 0min
+Lisa, true, true, false, 13.00, 0h 15mins
