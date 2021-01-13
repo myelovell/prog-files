@@ -38,37 +38,60 @@ class Vending_machine
     end
 
     def pay_cost()
+        if (@cash -= @products[product][1]) < 0 #move to func pay_cost()
+            puts "Not enough cash"
+            continue()
+        else
+            @cash -= @products[product][1]
+            @products[product][2] -= 1
 
+        end
+    end
+
+    def continue()
+        puts "Purchase another product?"
+        puts "yes / no"
+        choice = gets.chomp
+        while choice != "yes" || "no"
+            puts "Purchase another product?"
+            puts "yes / no"
+            choice = gets.chomp
+        end
+        if choice == "no"
+            break
+        else
+            pick_product()
+        end
     end
 
     def pick_product()
         puts "What would you like to buy?"
         display_products()
         product = gets.chomp
-        if product == @products["apple"][0] #find a way to loop through it maybe?
+        while product_name.include(product) #find a way to loop through it maybe?
             if #check if any product left
-            puts "This item costs #{@products["apple"][2]}, proceed to purchase?"
+                @products[product][2] == 0
+                puts "This product is currently not in stock"
+                pick_product()
+            end
+            puts "This item costs #{@products[product][1]}, proceed to purchase?"
             puts "yes / no"
             choice = gets.chomp
             while choice != "yes" || "no"
-                puts "This item costs #{@products["apple"][2]}, proceed to purchase?"
+                puts "This item costs #{@products[product][1]}, proceed to purchase?"
                 puts "yes / no"
                 choice = gets.chomp
             end
             if choice == "no" #create an option to quit
                 pick_product()
             else
-                if (@cash -= @products["apple"][2]) < 0
-                    puts "Not enough cash"
-                    pick_product()
-                else
-                    @cash -= @products["apple"][2]
-                end
+                pay_cost()
             end
-
-
+            continue()
 
         end
+        puts "product does not exist, choose another product"
+        pick_product()
     end
 end
 vending_machine = Vending_machine.new
